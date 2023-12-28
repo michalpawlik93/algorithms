@@ -1,4 +1,4 @@
-﻿namespace Algorithms.Sort.Utils;
+﻿namespace Collections.Arrays;
 public static class ArrayUtils
 {
     public static char[] CopyByArrayCopy(char[] array1, char[] array2)
@@ -23,11 +23,33 @@ public static class ArrayUtils
         return mergedArray;
     }
 
+    public static char[] CopyByFor(char[] array1, char[] array2)
+    {
+        var mergedArray = new char[array1.Length + array2.Length];
+
+        for (int i = 0; i < array1.Length; i++)
+        {
+            mergedArray[i] = array1[i];
+        }
+
+        for (int i = 0; i < array2.Length; i++)
+        {
+            mergedArray[array1.Length + i] = array2[i];
+        }
+
+        return mergedArray;
+    }
+
     public static void DisplayAllArrayElements(char[] arr)
     {
         foreach (char c in arr)
         {
             Console.WriteLine(c);
         }
+    }
+
+    public static char[] CopyByConat(char[] array1, char[] array2)
+    {
+        return array1.Concat(array2).ToArray();
     }
 }

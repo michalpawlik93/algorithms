@@ -1,5 +1,5 @@
 ﻿using Algorithms.Sort.Algorithms;
-using Algorithms.Sort.Utils;
+using Collections.Arrays;
 
 namespace Algorithms.Sort.Exercises;
 

@@ -1,4 +1,4 @@
-﻿using Algorithms.Sort.Utils;
+﻿using Collections.Arrays;
 
 namespace Algorithms.Sort.Algorithms;
 
