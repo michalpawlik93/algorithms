@@ -40,7 +40,7 @@ public static class ArrayUtils
         return mergedArray;
     }
 
-    public static void DisplayAllArrayElements(char[] arr)
+    public static void DisplayAllArrayElements(this char[] arr)
     {
         foreach (char c in arr)
         {
@@ -51,5 +51,17 @@ public static class ArrayUtils
     public static char[] CopyByConat(char[] array1, char[] array2)
     {
         return array1.Concat(array2).ToArray();
+    }
+
+    /// <summary>
+    /// Complexity O(inputArray.length)
+    /// </summary>
+    /// <param name="inputArray"></param>
+    /// <returns></returns>
+    public static char[] CopyToNewArray(this char[] inputArray)
+    {
+        var outputArray = new char[inputArray.Length];
+        inputArray.CopyTo(outputArray, 0);
+        return outputArray;
     }
 }

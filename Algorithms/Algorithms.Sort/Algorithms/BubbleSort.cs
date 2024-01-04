@@ -1,33 +1,77 @@
-﻿using Collections.Arrays;
+﻿namespace Algorithms.Sort.Algorithms;
 
-namespace Algorithms.Sort.Algorithms;
-
+/// <summary>
+/// Time complexity O(inputArray.length^2)
+/// Memory complexity 1
+/// </summary>
 public static class BubbleSort
 {
-    public static char[] Sort(char[] array1, char[] array2)
+    public static char[] SortBubble(this char[] inputArray)
     {
-        var mergedArray = ArrayUtils.CopyByForeach(array1, array2);
-
-        var swaped = false;
-        do
+        for (int i = 0; i < inputArray.Length - 1; i++)
         {
-            swaped = false;
-            for (var i = 0; i < mergedArray.Length - 1; i++)
+            for (int j = 0; j < inputArray.Length - 1 - i; j++)
             {
-                if (mergedArray[i] > mergedArray[i + 1])
+                if (inputArray[j] > inputArray[j + 1])
                 {
-                    var temp1 = mergedArray[i];
-                    var temp2 = mergedArray[i + 1];
-                    mergedArray[i] = temp2;
-                    mergedArray[i + 1] = temp1;
-                    swaped = true;
-                    if (i == mergedArray.Length - 2)
-                    {
-                        break;
-                    }
+                    var element1 = inputArray[j];
+                    inputArray[j] = inputArray[j + 1];
+                    inputArray[j + 1] = element1;
                 }
             }
-        } while (swaped);
-        return mergedArray;
+        }
+        return inputArray;
+    }
+
+    public static char[] SortAdaptiveBubble(this char[] inputArray)
+    {
+        for (int i = 0; i < inputArray.Length - 1; i++)
+        {
+            var swaped = false;
+            for (int j = 0; j < inputArray.Length - 1 - i; j++)
+            {
+                if (inputArray[j] > inputArray[j + 1])
+                {
+                    var element1 = inputArray[j];
+                    inputArray[j] = inputArray[j + 1];
+                    inputArray[j + 1] = element1;
+                    swaped = true;
+                }
+            }
+
+            if (!swaped)
+            {
+                break;
+            }
+        }
+        return inputArray;
+    }
+
+    public static char[] SortAdaptiveBubbleAsSpan(this char[] inputArray)
+    {
+        var span = inputArray.AsSpan();
+
+        for (int i = 0; i < span.Length - 1; i++)
+        {
+            var swapped = false;
+
+            for (int j = 0; j < span.Length - 1 - i; j++)
+            {
+                if (span[j] > span[j + 1])
+                {
+                    var temp = span[j];
+                    span[j] = span[j + 1];
+                    span[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+
+            if (!swapped)
+            {
+                break;
+            }
+        }
+
+        return span.ToArray();
     }
 }

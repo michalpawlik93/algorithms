@@ -13,7 +13,17 @@ switch (value)
 {
     case 1:
         {
-            Sort2CharArraysAsc.TestBubbleSort();
+            SortExercises.TestBubbleSort();
+            break;
+        }
+    case 2:
+        {
+            SortExercises.TestMergeSort();
+            break;
+        }
+    case 3:
+        {
+            SortExercises.TestQuickSort();
             break;
         }
     default:

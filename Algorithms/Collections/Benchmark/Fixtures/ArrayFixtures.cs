@@ -14,7 +14,7 @@ public static class ArrayFixtures
             { Length1000, GenerateRandomArray(Length1000) },
         };
 
-    private static char[] GenerateRandomArray(int length) =>
+    public static char[] GenerateRandomArray(int length) =>
         Enumerable.Range(0, length).Select(_ => GenerateRandomChar()).ToArray();
 
     private static char GenerateRandomChar()
