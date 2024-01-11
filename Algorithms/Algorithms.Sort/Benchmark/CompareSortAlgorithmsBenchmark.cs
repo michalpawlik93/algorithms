@@ -1,5 +1,6 @@
 ﻿using Algorithms.Sort.Algorithms;
 using BenchmarkDotNet.Attributes;
+using Collections.Arrays;
 using Collections.Benchmark.Fixtures;
 
 namespace Algorithms.Sort.Benchmark;
@@ -9,36 +10,43 @@ public class CompareSortAlgorithmsBenchmark
 {
     [ParamsSource(nameof(ValuesForArrayLength))]
     public int ArrayLength { get; set; }
-    public Dictionary<int, char[]>[] TestArray { get; set; }
+    public Dictionary<int, char[]> GeneratedTestData { get; set; }
+    public Dictionary<int, char[]> IterationTestArray { get; set; }
 
     public IEnumerable<int> ValuesForArrayLength =>
         new[] { ArrayFixtures.Length30, ArrayFixtures.Length300, ArrayFixtures.Length1000 };
 
     public CompareSortAlgorithmsBenchmark()
     {
-        TestArray = new Dictionary<int, char[]>[]
+        GeneratedTestData = ArrayFixtures.GenerateTestData;
+        IterationTestArray = new Dictionary<int, char[]>();
+    }
+
+    [IterationSetup]
+    public void IterationSetup()
+    {
+        IterationTestArray = new Dictionary<int, char[]>();
+        foreach (var item in GeneratedTestData)
         {
-            ArrayFixtures.GenerateTestData,
-            ArrayFixtures.GenerateTestData,
-            ArrayFixtures.GenerateTestData
-        };
+            IterationTestArray.Add(item.Key, item.Value.CopyToNewArray());
+        }
     }
 
     [Benchmark(Baseline = true)]
     public void BubbleSort()
     {
-        TestArray[0][ArrayLength].SortAdaptiveBubble();
+        IterationTestArray[ArrayLength].SortAdaptiveBubble();
     }
 
     [Benchmark]
     public void MergeSort()
     {
-        TestArray[1][ArrayLength].SortMerge();
+        IterationTestArray[ArrayLength].SortMerge();
     }
 
     [Benchmark]
     public void QuickSort()
     {
-        TestArray[2][ArrayLength].SortQuick();
+        IterationTestArray[ArrayLength].SortQuick();
     }
 }
