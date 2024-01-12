@@ -2,4 +2,6 @@
 using DataStructures.Benchmark;
 
 //BenchmarkRunner.Run<LinkedListBenchmark>();
-BenchmarkRunner.Run<DictionaryBenchmark>();
+//BenchmarkRunner.Run<DictionaryBenchmark>();
+//BenchmarkRunner.Run<QueueBenchmark>();
+BenchmarkRunner.Run<StackBenchmark>();

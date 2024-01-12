@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace DataStructures.Structures.LinkedList;
 
-/// <summary>
-/// Time complexity O(N)
-/// Memory complexity O(1)
-/// </summary>
 public class CustomLinkedList<T> : IEnumerable<T>
 {
     private Node<T> Head { get; set; }
 
+    /// <summary>
+    /// Time complexity O(N)
+    /// Memory complexity O(1)
+    /// </summary>
     public CustomLinkedList<T> InsertFirst(T data, Guid? id = null)
     {
         Node<T> node = new(data, id);
@@ -28,6 +28,10 @@ public class CustomLinkedList<T> : IEnumerable<T>
         return this;
     }
 
+    /// <summary>
+    /// Time complexity O(N)
+    /// Memory complexity O(1)
+    /// </summary>
     public CustomLinkedList<T> InsertLast(T data, Guid? id = null)
     {
         Node<T> node = new(data, id);
