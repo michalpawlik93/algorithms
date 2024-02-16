@@ -48,6 +48,14 @@ public static class ArrayUtils
         }
     }
 
+    public static void DisplayAllArrayElements<T>(this T[] arr)
+    {
+        foreach (T c in arr)
+        {
+            Console.WriteLine(c);
+        }
+    }
+
     public static char[] CopyByConat(char[] array1, char[] array2)
     {
         return array1.Concat(array2).ToArray();

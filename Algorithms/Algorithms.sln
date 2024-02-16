@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithms.Program", "Algor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Collections", "Collections\Collections.csproj", "{125835EA-D97B-4645-972E-5FF4D172BEC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures", "DataStructures\DataStructures.csproj", "{A199BC5E-70ED-4DA6-A62B-175285555921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures", "DataStructures\DataStructures.csproj", "{A199BC5E-70ED-4DA6-A62B-175285555921}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms.Search", "Algorithms.Search\Algorithms.Search.csproj", "{2777F3E8-48CE-49EA-BD7F-3642F1531498}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A199BC5E-70ED-4DA6-A62B-175285555921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A199BC5E-70ED-4DA6-A62B-175285555921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A199BC5E-70ED-4DA6-A62B-175285555921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2777F3E8-48CE-49EA-BD7F-3642F1531498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2777F3E8-48CE-49EA-BD7F-3642F1531498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2777F3E8-48CE-49EA-BD7F-3642F1531498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2777F3E8-48CE-49EA-BD7F-3642F1531498}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

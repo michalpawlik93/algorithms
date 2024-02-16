@@ -53,6 +53,9 @@ public abstract class QueueBase<T>
     public abstract void Enqueue(T item);
     public abstract T Dequeue();
 
+    /// <summary>
+    /// Not needed methode. Arrays are dynamic in c#.
+    /// </summary>
     protected void ResizeQueueCheck()
     {
         if (TailIndex + 1 > Size)

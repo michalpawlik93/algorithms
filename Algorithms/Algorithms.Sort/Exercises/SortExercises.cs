@@ -26,4 +26,13 @@ public static class SortExercises
         var result = QuickSort.SortQuick(array);
         ArrayUtils.DisplayAllArrayElements(result);
     }
+
+    public static void GroupAnagrams()
+    {
+        var anagrams = new string[] { "eat", "tea", "tan", "ate", "nat", "bat" };
+        foreach (var anagram in anagrams.SortBucketOnBuildInStructures())
+        {
+            Console.WriteLine(anagram);
+        }
+    }
 }

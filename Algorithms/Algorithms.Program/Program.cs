@@ -26,6 +26,11 @@ switch (value)
             SortExercises.TestQuickSort();
             break;
         }
+    case 4:
+        {
+            SortExercises.GroupAnagrams();
+            break;
+        }
     default:
         {
             Console.WriteLine("Methode not found.");
