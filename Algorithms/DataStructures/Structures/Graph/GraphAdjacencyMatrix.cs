@@ -3,8 +3,6 @@ using System.Linq;
 
 namespace DataStructures.Structures.Graph;
 
-public record Vertex(int Id);
-
 public record struct MatrixIndex(int Vertical, int Horizontal);
 
 public class GraphAdjacencyMatrix
@@ -108,4 +106,18 @@ public class MatrixException : Exception
     public MatrixException(string message) : base(message) { }
 
     public MatrixException(string message, Exception inner) : base(message, inner) { }
+}
+
+internal static class GraphAdjacencyMatrixTestProgram
+{
+    public static void Run()
+    {
+        var newG = new GraphAdjacencyMatrix();
+        for (int i = 1; i < 10; i++)
+        {
+            newG.Add(new Vertex(i), new Vertex[0]);
+        }
+        newG.Add(new Vertex(10), new Vertex[] { new Vertex(2), new Vertex(3) });
+        newG.PrintMatrix();
+    }
 }

@@ -9,9 +9,8 @@ public static class SearchExercises
 
     /// <summary>
     /// Given an input file with intigers, file can have 20Gb size, how to sort it
-    /// for this task
     /// </summary>
-    public static void SearchIntNotIncludedInFile()
+    public static void SortBigFileOfIntigers()
     {
         var filePath = "E:\\Nauka\\algorithms\\Algorithms\\Algorithms.Search\\input.txt";
         if (!File.Exists(filePath))
@@ -27,7 +26,7 @@ public static class SearchExercises
 
             var ints = buffer.ConverToIntBuffer();
             // should be merge sort because data can be huge
-            var sortedArray = QuickSort(ints);
+            var sortedArray = MergeSort(ints);
             buffers.Add(sortedArray);
             if (count == 0)
             {
@@ -35,7 +34,7 @@ public static class SearchExercises
             }
         }
 
-        /// merge sort k srtoed arrays
+        /// merge sort k sorted arrays
 
         ArrayUtils.DisplayAllArrayElements(buffers.SelectMany(x => x).ToArray());
     }
@@ -63,7 +62,7 @@ public static class SearchExercises
             tempBuilder.Clear();
         }
 
-        return tempStrings.Select(x => int.Parse(x)).ToList();
+        return tempStrings.Select(int.Parse).ToList();
     }
 
     private static List<int> QuickSort(List<int> input)
@@ -88,5 +87,64 @@ public static class SearchExercises
             }
         }
         return [.. QuickSort(left), input[pivot], .. QuickSort(right)];
+    }
+
+    private static List<int> MergeSort(List<int> input)
+    {
+        if (input.Count < 2)
+        {
+            return input;
+        }
+        var middle = (input.Count) / 2;
+        var left = new List<int>();
+        var right = new List<int>();
+        for (var i = 0; i < middle; i++)
+        {
+            left.Add(input[i]);
+        }
+        for (var i = middle; i < input.Count; i++)
+        {
+            right.Add(input[i]);
+        }
+        var mergedLeft = MergeSort(left);
+        var mergedRight = MergeSort(right);
+
+        return MergeSortedLists(mergedLeft, mergedRight);
+
+
+    }
+
+    private static List<int> MergeSortedLists(List<int> left, List<int> right)
+    {
+        var mergedList = new List<int>();
+        var i = 0;
+        var j = 0;
+        while (i < left.Count && j < right.Count)
+        {
+            if (left[i] <= right[j])
+            {
+                mergedList.Add(left[i]);
+                i++;
+            }
+            else
+            {
+                mergedList.Add(right[j]);
+                j++;
+            }
+        }
+
+        while (i < left.Count)
+        {
+            mergedList.Add(left[i]);
+            i++;
+        }
+
+        while (j < right.Count)
+        {
+            mergedList.Add(right[j]);
+            j++;
+        }
+
+        return mergedList;
     }
 }
