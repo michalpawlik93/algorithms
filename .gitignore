@@ -8,3 +8,4 @@
 .vs/
 **/BenchmarkDotNet.Artifacts
 /AlgorithmsJs/node_modules
+**/target/
