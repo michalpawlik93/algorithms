@@ -1,8 +1,11 @@
+mod exercises;
 mod utils;
 fn main() {
-    let x: i8 = 5;
-    let bit_position: i8 = 4;
-    let result = utils::bit_utils::set_bit(x, bit_position);
-    println!("Result is: {}", result);
-    println!("Result after setting bit (binary): {:08b}", result);
+    println!("Chose exercise by number");
+    let number_input = utils::console_utils::read_input();
+    let exercise_number: i8 = utils::console_utils::convert_to_int(number_input);
+    match exercise_number {
+        1 => exercises::exercise1::insert_integers(),
+        _ => println!("Choosen no exercise"),
+    }
 }
