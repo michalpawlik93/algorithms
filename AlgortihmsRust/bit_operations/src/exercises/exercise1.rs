@@ -1,10 +1,9 @@
 use crate::utils::console_utils;
 
-/*  You are given 32 bit numbers, N and M, and two bit positions, i and j.
-    Write a method to insert M into N such that M starts at bit j and ends at bit i.
-    Example N=10000000000, M=10011, i=2, j=6
-    Output N=10001001100
-*/
+/* You are given 32 bit numbers, N and M, and two bit positions, i and j.
+Write a method to insert M into N such that M starts at bit j and ends at bit i.
+Example N=10000000000, M=10011, i=2, j=6
+Output N=10001001100*/
 
 pub fn insert_integers() {
     println!("insert_integers exercise 1");
@@ -46,7 +45,25 @@ fn read_input_data() -> (i32, i32, i8, i8) {
     (
         console_utils::convert_binary_string_to_i32(input_n),
         console_utils::convert_binary_string_to_i32(input_m),
-        console_utils::convert_to_int::<i8>(input_bit_position_i),
-        console_utils::convert_to_int::<i8>(input_bit_position_j),
+        console_utils::convert_to_number::<i8>(input_bit_position_i),
+        console_utils::convert_to_number::<i8>(input_bit_position_j),
     )
+}
+
+#[cfg(test)]
+mod exercise_1_tests {
+    use super::*;
+
+    #[test]
+    fn test_insert_integers() {
+        let n: i32 = 0b10000000000; // Binary for 1024
+        let m: i32 = 0b10011; // Binary for 19
+        let i: i8 = 2;
+        let j: i8 = 6;
+
+        let result = insert_integers_intern(n, m, i, j);
+
+        // Binary for 1036
+        assert_eq!(result, 0b10001001100);
+    }
 }

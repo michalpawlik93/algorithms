@@ -9,7 +9,7 @@ pub fn read_input() -> String {
     input_line
 }
 
-pub fn convert_to_int<T>(input_line: String) -> T
+pub fn convert_to_number<T>(input_line: String) -> T
 where
     T: FromStr,
     T::Err: std::fmt::Debug,
@@ -17,7 +17,10 @@ where
     match input_line.trim().parse::<T>() {
         Ok(num) => num,
         Err(_) => {
-            eprintln!("Input not a valid integer");
+            eprintln!(
+                "Input not a valid number for type {}",
+                std::any::type_name::<T>()
+            );
             std::process::exit(1);
         }
     }
