@@ -7,6 +7,7 @@ fn main() {
     match exercise_number {
         1 => exercises::exercise1::insert_integers(),
         2 => exercises::exercise2::binary_to_string(),
+        3 => exercises::exercise3::find_longest_sequence(),
         _ => println!("Choosen no exercise"),
     }
 }

@@ -19,10 +19,10 @@ At that moment bit in n on i position is detemined.
 // 00000100
 // ----
 // 00000101
-//  */
-// pub fn set_bit(num: i8, i: i8) -> i8 {
-//     return num | (1 << i);
-// }
+
+pub fn set_bit(num: i32, i: i32) -> i32 {
+    return num | (1 << i);
+}
 
 // pub fn clear_bit(num: i8, i: i8) -> i8 {
 //     let mask: i8 = !(1 << i);
