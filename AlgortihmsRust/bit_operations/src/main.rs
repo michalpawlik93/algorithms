@@ -8,6 +8,7 @@ fn main() {
         1 => exercises::exercise1::insert_integers(),
         2 => exercises::exercise2::binary_to_string(),
         3 => exercises::exercise3::find_longest_sequence(),
+        4 => exercises::exercise4::get_next_smaller_and_bigger(),
         _ => println!("Choosen no exercise"),
     }
 }
