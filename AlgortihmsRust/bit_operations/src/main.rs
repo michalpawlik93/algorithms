@@ -9,6 +9,8 @@ fn main() {
         2 => exercises::exercise2::binary_to_string(),
         3 => exercises::exercise3::find_longest_sequence(),
         4 => exercises::exercise4::get_next_smaller_and_bigger(),
+        5 => exercises::exercise5::count_bits_to_convert_int_to_int(),
+        6 => exercises::exercise6::swap_odd_even_bits(),
         _ => println!("Choosen no exercise"),
     }
 }

@@ -9,7 +9,7 @@ At that moment bit in n on i position is detemined.
 00000101
  */
 #[allow(dead_code)]
-pub fn get_bit(num: i8, i: i8) -> bool {
+pub fn get_bit(num: i32, i: i32) -> bool {
     return (num & (1 << i)) != 0;
 }
 
