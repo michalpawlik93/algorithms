@@ -1,7 +1,8 @@
+mod utils;
 use std::ffi::c_void;
 use std::mem::transmute;
 use std::process;
-use windows::Win32::Foundation::{CloseHandle, GetLastError, HANDLE, WAIT_TIMEOUT};
+use windows::Win32::Foundation::{CloseHandle, GetLastError, WAIT_TIMEOUT};
 use windows::Win32::System::Diagnostics::Debug::WriteProcessMemory;
 use windows::Win32::System::Memory::{
     VirtualAllocEx, MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
@@ -15,7 +16,7 @@ fn main() {
     let target_process_id = process::id();
     println!("My pid is {}", target_process_id);
 
-    let h_process = unsafe {
+    let handler_result = unsafe {
         OpenProcess(
             PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ,
             false,
@@ -23,16 +24,16 @@ fn main() {
         )
     };
 
-    match h_process {
-        Ok(h_process) => {
+    match handler_result {
+        Ok(h_process_1) => {
             eprintln!("Process opened");
 
             let alloc_mem_address = unsafe {
                 VirtualAllocEx(
-                    h_process,
+                    h_process_1,
                     None,
                     1024,
-                    MEM_COMMIT | MEM_RESERVE,
+                    MEM_RESERVE | MEM_COMMIT,
                     PAGE_EXECUTE_READWRITE,
                 )
             };
@@ -42,22 +43,25 @@ fn main() {
                 });
                 return;
             }
+            eprintln!("Memory allocated at address: {:?}", alloc_mem_address);
+            utils::memory_utils::check_memory_protection(alloc_mem_address, h_process_1);
 
-            // allocating data doesnt work... I got (exit code: 0xc0000005, STATUS_ACCESS_VIOLATION) allocating memory
-            let shellcode: [u8; 3] = [
-                // Allocate memory using VirtualAlloc
-                0x6a, 0x00, // push 0 (lpAddress)
-                0xc3, // RET (Return)
+            let shellcode: [u8; 11] = [
+                0xB8, 0x01, 0x00, 0x00, 0x00, // MOV EAX, 0x00000001
+                0x89, 0xC1, // MOV ECX, EAX
+                0x89, 0xC2, // MOV EDX, EAX
+                0x90, // NOP
+                0xC3, // RET
             ];
 
             let mut bytes_written: usize = 0;
             let write_result = unsafe {
                 WriteProcessMemory(
-                    h_process,
+                    h_process_1,
                     alloc_mem_address,
                     shellcode.as_ptr() as *const c_void,
                     shellcode.len(),
-                    Some(&mut bytes_written as *mut usize),
+                    Some(&mut bytes_written),
                 )
             };
 
@@ -67,17 +71,18 @@ fn main() {
                 });
                 return;
             }
-
             eprintln!("Bytes written: {:?}", bytes_written);
 
+            //let func: extern "system" fn() = unsafe { std::mem::transmute(alloc_mem_address) };
+            //func();
             let thread_entry_point = unsafe {
                 transmute::<*mut c_void, extern "system" fn(*mut c_void) -> u32>(alloc_mem_address)
             };
 
             let mut thread_id: u32 = 0;
-            let h_thread = unsafe {
+            let h_thread_result = unsafe {
                 CreateRemoteThread(
-                    h_process,
+                    h_process_1,
                     None,
                     0,
                     Some(thread_entry_point),
@@ -87,7 +92,7 @@ fn main() {
                 )
             };
 
-            match h_thread {
+            match h_thread_result {
                 Ok(h_thread) => {
                     if h_thread.is_invalid() {
                         eprintln!("Cannot create thread. Error: {:?}", unsafe {
@@ -105,8 +110,15 @@ fn main() {
                         _ => println!("Thread finished."),
                     }
 
-                    unsafe {
-                        CloseHandle(h_thread);
+                    let close_h1_result = unsafe { CloseHandle(h_process_1) };
+
+                    match close_h1_result {
+                        Ok(_) => {
+                            eprintln!("Handler closed.")
+                        }
+                        Err(err) => {
+                            eprintln!("Failed to close handler. Error: {:?}", err);
+                        }
                     }
                 }
                 Err(err) => {
